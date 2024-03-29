@@ -2,6 +2,9 @@
 
 namespace App\Models\Services;
 
+use PDO;
+use PDOException;
+
 abstract class DbConnection{
  
     /** @var string $host Recebe o local do banco de dados */
@@ -16,13 +19,21 @@ abstract class DbConnection{
     /** @var string $dbname Recebe o nome do banco de dados */
     private string $dbname = "phpunit_db";
 
-    /** @var string $port Recebe a porta */
+    /** @var int|string $port Recebe a porta */
     private int|string $port = 3306;
 
-    /** @var string $connect Recebe a conexão do banco de dados */
+    /** @var object $connect Recebe a conexão do banco de dados */
     private object $connect;
 
     protected function getConnection(){
-        return true;
+        try{
+            
+            // Conexão com a porta
+            $this->connect = new PDO("mysql:host={$this->host};port={$this->port};dbname=" . $this->dbname, $this->user, $this->pass);
+            return $this->connect;
+
+        }catch(PDOException $error){
+            die("Erro: Por favor tente novamente. Caso o problema persista, entre em contato com o administrador...");
+        }
     }
 }

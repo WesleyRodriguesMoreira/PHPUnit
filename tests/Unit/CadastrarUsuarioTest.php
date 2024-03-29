@@ -12,7 +12,7 @@ class CadastrarUsuarioTest extends TestCase{
         $cadastro = new CadastrarUsuario();
 
         // Chamar o método cadastrar com dados do usuário
-        $resultado = $cadastro->cadastrarUsuario();
+        $resultado = $cadastro->cadastrarUsuario("Olá, Mundo", "olaMundo@gmail.com");
 
         // Usar asserções para verificar se o cadastro foi bem-sucedido
         $this->assertTrue($resultado);
